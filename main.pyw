@@ -50,11 +50,14 @@ def clear():
     duration_input.delete(0, END)
 
 def calculate_bmi():
-    print("bmr")
-    height = 76
-    weight = 205
+    """Get user inputs and calculate their BMI"""
+
+    # Get user inputs
+    weight = float(bmi_weight_input.get())
+    height = float(bmi_height_input.get())
+
+    # Calculate and display BMI
     bmi = (weight * 703) / (height * height)
-    print(bmi)
     bmi_label.config(text=f"{bmi:.1f}")
 
 
@@ -149,7 +152,7 @@ exit_button.grid(row=3, column=0, pady=[20, 10], columnspan=2)
 
 # ----------------------------- BMI TAB ------------------------
 bmi_label = Label(bmi_frame, text="BODY MASS INDEX", pady=10, font=("Helvetica 12 bold"))
-bmi_label.grid(row=0, column=0)
+bmi_label.grid(row=0, column=0, columnspan=2)
 
 bmi_input_frame = LabelFrame(bmi_frame, text="Input", padx=20, pady=10)
 bmi_input_frame.grid(row=1, column=0, padx=10)
@@ -165,10 +168,10 @@ bmi_pound_label.grid(row=2, column=1)
 # BMI Height Labels And Inputs
 bmi_height_label = Label(bmi_input_frame, text="Height (in inches)")
 bmi_height_label.grid(row=3, column=0)
-bmi_feet_input = Entry(bmi_input_frame, width=15)
-bmi_feet_input.grid(row=4, column=0)
-bmi_feel_label = Label(bmi_input_frame, text="in")
-bmi_feel_label.grid(row=4, column=1)
+bmi_height_input = Entry(bmi_input_frame, width=15)
+bmi_height_input.grid(row=4, column=0)
+bmi_inch_label = Label(bmi_input_frame, text="in")
+bmi_inch_label.grid(row=4, column=1)
 
 bmi_output_frame = LabelFrame(bmi_frame, text="Output", padx=20, pady=10)
 bmi_output_frame.grid(row=1, column=1, padx=10)
