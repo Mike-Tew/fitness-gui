@@ -6,7 +6,7 @@
 from tkinter import Tk, Frame, LabelFrame, Label, Entry, Button, Radiobutton, IntVar, END
 from tkinter import ttk
 
-from formulas import male_bmr, female_bmr, male_calories, female_calories
+from formulas import male_bmr, female_bmr, male_calories, female_calories, bmi_formula
 
 
 def calculate_calories():
@@ -57,8 +57,7 @@ def calculate_bmi():
     height = float(bmi_height_input.get())
 
     # Calculate and display BMI
-    bmi = (weight * 703) / (height * height)
-    bmi_label.config(text=f"{bmi:.1f}")
+    bmi_label.config(text=f"{bmi_formula(height, weight):.1f}")
 
 
 root = Tk()
@@ -150,6 +149,58 @@ clear_button.grid(row=2, column=1, pady=[20, 0])
 exit_button = Button(exercise_frame, width=20, text="Exit", command=root.quit)
 exit_button.grid(row=3, column=0, pady=[20, 10], columnspan=2)
 
+# -------------------------- BODY FAT TAB -----------------------
+body_fat_label = Label(body_fat_frame, text="BODY FAT CALCULATOR", pady=10, font=("Helvetica 12 bold"))
+body_fat_label.grid(row=0, column=0, columnspan=2)
+
+body_fat_input_frame = LabelFrame(body_fat_frame, text="Input", padx=20, pady=10)
+body_fat_input_frame.grid(row=1, column=0, padx=10)
+
+# Body Fat Labels And Inputs
+bf_age_label = Label(body_fat_input_frame, text="Age")
+bf_age_label.grid(row=1, column=0)
+bf_age_input = Entry(body_fat_input_frame, width=15)
+bf_age_input.grid(row=2, column=0, pady=[0, 10])
+
+bf_weight_label = Label(body_fat_input_frame, text="Weight")
+bf_weight_label.grid(row=3, column=0)
+bf_weight_input = Entry(body_fat_input_frame, width=15)
+bf_weight_input.grid(row=4, column=0, pady=[0, 10])
+
+bf_chest_label = Label(body_fat_input_frame, text="Chest Skinfold")
+bf_chest_label.grid(row=5, column=0)
+bf_chest_input = Entry(body_fat_input_frame, width=15)
+bf_chest_input.grid(row=6, column=0, pady=[0, 10])
+
+bf_ab_label = Label(body_fat_input_frame, text="Ab Skinfold")
+bf_ab_label.grid(row=7, column=0)
+bf_ab_input = Entry(body_fat_input_frame, width=15)
+bf_ab_input.grid(row=8, column=0, pady=[0, 10])
+
+bf_thigh_label = Label(body_fat_input_frame, text="Thigh Skinfold")
+bf_thigh_label.grid(row=9, column=0)
+bf_thigh_input = Entry(body_fat_input_frame, width=15)
+bf_thigh_input.grid(row=10, column=0, pady=[0, 10])
+
+# Body Fat Output Area
+body_fat_output_frame = LabelFrame(body_fat_frame, text="Output", padx=20, pady=10)
+body_fat_output_frame.grid(row=1, column=1)
+
+bf_label = Label(body_fat_output_frame, text="Body Fat", font="bold")
+bf_label.grid(row=1, column=0, padx=30, pady=[30, 0])
+bf_output = Label(body_fat_output_frame, text="12.5%", font=("Helvetica 15 bold"))
+bf_output.grid(row=2, column=0)
+
+fat_mass_label = Label(body_fat_output_frame, text="Fat Mass", font="bold")
+fat_mass_label.grid(row=4, column=0, pady=[30, 0])
+fat_mass_output = Label(body_fat_output_frame, text="20lb", font=("Helvetica 15 bold"))
+fat_mass_output.grid(row=5, column=0)
+
+lean_mass_label = Label(body_fat_output_frame, text="Lean Mass", font="bold")
+lean_mass_label.grid(row=7, column=0, pady=[31, 0])
+lean_mass_output = Label(body_fat_output_frame, text="150lb", font=("Helvetica 15 bold"))
+lean_mass_output.grid(row=8, column=0)
+
 # ----------------------------- BMI TAB ------------------------
 bmi_label = Label(bmi_frame, text="BODY MASS INDEX", pady=10, font=("Helvetica 12 bold"))
 bmi_label.grid(row=0, column=0, columnspan=2)
@@ -161,7 +212,7 @@ bmi_input_frame.grid(row=1, column=0, padx=10)
 bmi_weight_label = Label(bmi_input_frame, text="Weight")
 bmi_weight_label.grid(row=1, column=0)
 bmi_weight_input = Entry(bmi_input_frame, width=15)
-bmi_weight_input.grid(row=2, column=0)
+bmi_weight_input.grid(row=2, column=0, pady=[0, 10])
 bmi_pound_label = Label(bmi_input_frame, text="lb")
 bmi_pound_label.grid(row=2, column=1)
 
@@ -178,7 +229,7 @@ bmi_output_frame.grid(row=1, column=1, padx=10)
 
 # BMI output labels
 bmi_output_label = Label(bmi_output_frame, text="BMI", font="bold", padx=45)
-bmi_output_label.grid(row=0, column=0, pady=[15, 0])
+bmi_output_label.grid(row=0, column=0, pady=[23, 0])
 
 bmi_label = Label(bmi_output_frame, text="--.-", font=("Helvetica 15 bold"))
 bmi_label.grid(row=1, column=0, pady=7)

@@ -22,3 +22,7 @@ def female_calories(heartrate, weight, age, duration):
         (-20.4022 + (0.4472 * heartrate) - (0.1263 * (weight / 2.205)) + (0.074 * age))
         / 4.184
     ) * duration
+
+def bmi_formula(height, weight):
+    # Calculate BMI from height and weight
+    return (weight * 703) / (height * height)
