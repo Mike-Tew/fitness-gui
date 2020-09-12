@@ -1,12 +1,28 @@
 # Todos
-# Create multiple tabs
-# Bring in body fat code
-# Create BMI code and frame
+# Clean up body fat tab styling
+# Bind return to all frames
 
-from tkinter import Tk, Frame, LabelFrame, Label, Entry, Button, Radiobutton, IntVar, END
+from tkinter import (
+    Tk,
+    Frame,
+    LabelFrame,
+    Label,
+    Entry,
+    Button,
+    Radiobutton,
+    IntVar,
+    END,
+)
 from tkinter import ttk
 
-from formulas import male_bmr, female_bmr, male_calories, female_calories, bmi_formula
+from formulas import (
+    male_bmr,
+    female_bmr,
+    male_calories,
+    female_calories,
+    male_body_fat,
+    bmi_formula,
+)
 
 
 def calculate_calories():
@@ -49,6 +65,7 @@ def clear():
     heartrate_input.delete(0, END)
     duration_input.delete(0, END)
 
+
 def calculate_bmi():
     """Get user inputs and calculate their BMI"""
 
@@ -78,7 +95,10 @@ my_notebook.add(bmi_frame, text="BMI Calc")
 
 # ---------------- EXERCISE TAB -------------------
 exercise_title = Label(
-    exercise_frame, text="EXERCISE CALORIE CALCULATOR", pady=10, font=("Helvetica 12 bold")
+    exercise_frame,
+    text="EXERCISE CALORIE CALCULATOR",
+    pady=10,
+    font=("Helvetica 12 bold"),
 )
 exercise_title.grid(row=0, column=0, columnspan=2)
 gender = IntVar()
@@ -138,7 +158,9 @@ net_output = Label(output_frame, font=("Helvetica 15 bold"))
 net_output.grid(row=8, column=0)
 
 # Create the calculate button
-calculate_button = Button(exercise_frame, width=15, text="Calculate", command=calculate_calories)
+calculate_button = Button(
+    exercise_frame, width=15, text="Calculate", command=calculate_calories
+)
 calculate_button.grid(row=2, column=0, pady=[20, 0], padx=20)
 
 # Create the clear button
@@ -150,7 +172,9 @@ exit_button = Button(exercise_frame, width=20, text="Exit", command=root.quit)
 exit_button.grid(row=3, column=0, pady=[20, 10], columnspan=2)
 
 # -------------------------- BODY FAT TAB -----------------------
-body_fat_label = Label(body_fat_frame, text="BODY FAT CALCULATOR", pady=10, font=("Helvetica 12 bold"))
+body_fat_label = Label(
+    body_fat_frame, text="BODY FAT CALCULATOR", pady=10, font=("Helvetica 12 bold")
+)
 body_fat_label.grid(row=0, column=0, columnspan=2)
 
 body_fat_input_frame = LabelFrame(body_fat_frame, text="Input", padx=20, pady=10)
@@ -188,21 +212,54 @@ body_fat_output_frame.grid(row=1, column=1)
 
 bf_label = Label(body_fat_output_frame, text="Body Fat", font="bold")
 bf_label.grid(row=1, column=0, padx=30, pady=[30, 0])
-bf_output = Label(body_fat_output_frame, text="12.5%", font=("Helvetica 15 bold"))
+bf_output = Label(body_fat_output_frame, font=("Helvetica 15 bold"))
 bf_output.grid(row=2, column=0)
 
 fat_mass_label = Label(body_fat_output_frame, text="Fat Mass", font="bold")
 fat_mass_label.grid(row=4, column=0, pady=[30, 0])
-fat_mass_output = Label(body_fat_output_frame, text="20lb", font=("Helvetica 15 bold"))
+fat_mass_output = Label(body_fat_output_frame, font=("Helvetica 15 bold"))
 fat_mass_output.grid(row=5, column=0)
 
 lean_mass_label = Label(body_fat_output_frame, text="Lean Mass", font="bold")
 lean_mass_label.grid(row=7, column=0, pady=[31, 0])
-lean_mass_output = Label(body_fat_output_frame, text="150lb", font=("Helvetica 15 bold"))
+lean_mass_output = Label(body_fat_output_frame, font=("Helvetica 15 bold"))
 lean_mass_output.grid(row=8, column=0)
 
+
+def calculate_body_fat():
+    age = float(bf_age_input.get())
+    weight = float(bf_weight_input.get())
+    chest = float(bf_chest_input.get())
+    ab = float(bf_ab_input.get())
+    thigh = float(bf_thigh_input.get())
+
+    body_fat = male_body_fat(age, chest, ab, thigh)
+    fat_mass = weight * body_fat * 0.01
+
+    bf_output.config(text=f"{body_fat:.1f}%")
+    fat_mass_output.config(text=f"{fat_mass:.1f} lb")
+    lean_mass_output.config(text=f"{weight - fat_mass:.1f} lb")
+
+
+# Create the calculate button
+calculate_button = Button(
+    body_fat_frame, width=15, text="Calculate", command=calculate_body_fat
+)
+calculate_button.grid(row=2, column=0, pady=[20, 0], padx=20)
+
+# Create the clear button
+clear_button = Button(body_fat_frame, width=15, text="Clear", command=clear)
+clear_button.grid(row=2, column=1, pady=[20, 0])
+
+# Create the exit button
+exit_button = Button(body_fat_frame, width=20, text="Exit", command=root.quit)
+exit_button.grid(row=3, column=0, pady=[20, 10], columnspan=2)
+
+
 # ----------------------------- BMI TAB ------------------------
-bmi_label = Label(bmi_frame, text="BODY MASS INDEX", pady=10, font=("Helvetica 12 bold"))
+bmi_label = Label(
+    bmi_frame, text="BODY MASS INDEX", pady=10, font=("Helvetica 12 bold")
+)
 bmi_label.grid(row=0, column=0, columnspan=2)
 
 bmi_input_frame = LabelFrame(bmi_frame, text="Input", padx=20, pady=10)
