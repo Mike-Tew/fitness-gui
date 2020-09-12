@@ -1,7 +1,3 @@
-# Todos
-# Clean up body fat tab styling
-# Bind return to all frames
-
 from tkinter import (
     Tk,
     Frame,
@@ -66,6 +62,25 @@ def clear():
     duration_input.delete(0, END)
 
 
+def calculate_body_fat():
+    """Get user inputs and calculate their body fat percentage"""
+
+    # Get user inputs
+    age = float(bf_age_input.get())
+    weight = float(bf_weight_input.get())
+    chest = float(bf_chest_input.get())
+    ab = float(bf_ab_input.get())
+    thigh = float(bf_thigh_input.get())
+
+    body_fat = male_body_fat(age, chest, ab, thigh)
+    fat_mass = weight * body_fat * 0.01
+
+    # Display fat percentages
+    bf_output.config(text=f"{body_fat:.1f}%")
+    fat_mass_output.config(text=f"{fat_mass:.1f} lb")
+    lean_mass_output.config(text=f"{weight - fat_mass:.1f} lb")
+
+
 def calculate_bmi():
     """Get user inputs and calculate their BMI"""
 
@@ -78,8 +93,7 @@ def calculate_bmi():
 
 
 root = Tk()
-root.title("Exercise Calorie Calculator")
-root.bind("<Return>", lambda x: calculate_calories())
+root.title("Body Composition Calculator")
 
 # ---------------- TABS ---------------------
 my_notebook = ttk.Notebook(root)
@@ -183,35 +197,35 @@ body_fat_input_frame.grid(row=1, column=0, padx=10)
 # Body Fat Labels And Inputs
 bf_age_label = Label(body_fat_input_frame, text="Age")
 bf_age_label.grid(row=1, column=0)
-bf_age_input = Entry(body_fat_input_frame, width=15)
+bf_age_input = Entry(body_fat_input_frame, width=10)
 bf_age_input.grid(row=2, column=0, pady=[0, 10])
 
 bf_weight_label = Label(body_fat_input_frame, text="Weight")
 bf_weight_label.grid(row=3, column=0)
-bf_weight_input = Entry(body_fat_input_frame, width=15)
+bf_weight_input = Entry(body_fat_input_frame, width=10)
 bf_weight_input.grid(row=4, column=0, pady=[0, 10])
 
-bf_chest_label = Label(body_fat_input_frame, text="Chest Skinfold")
+bf_chest_label = Label(body_fat_input_frame, text="Chest Skinfold (mm)")
 bf_chest_label.grid(row=5, column=0)
-bf_chest_input = Entry(body_fat_input_frame, width=15)
+bf_chest_input = Entry(body_fat_input_frame, width=10)
 bf_chest_input.grid(row=6, column=0, pady=[0, 10])
 
-bf_ab_label = Label(body_fat_input_frame, text="Ab Skinfold")
+bf_ab_label = Label(body_fat_input_frame, text="Ab Skinfold (mm)")
 bf_ab_label.grid(row=7, column=0)
-bf_ab_input = Entry(body_fat_input_frame, width=15)
+bf_ab_input = Entry(body_fat_input_frame, width=10)
 bf_ab_input.grid(row=8, column=0, pady=[0, 10])
 
-bf_thigh_label = Label(body_fat_input_frame, text="Thigh Skinfold")
+bf_thigh_label = Label(body_fat_input_frame, text="Thigh Skinfold (mm)")
 bf_thigh_label.grid(row=9, column=0)
-bf_thigh_input = Entry(body_fat_input_frame, width=15)
-bf_thigh_input.grid(row=10, column=0, pady=[0, 10])
+bf_thigh_input = Entry(body_fat_input_frame, width=10)
+bf_thigh_input.grid(row=10, column=0, pady=[0, 35])
 
 # Body Fat Output Area
 body_fat_output_frame = LabelFrame(body_fat_frame, text="Output", padx=20, pady=10)
-body_fat_output_frame.grid(row=1, column=1)
+body_fat_output_frame.grid(row=1, column=1, ipady=21, padx=10)
 
 bf_label = Label(body_fat_output_frame, text="Body Fat", font="bold")
-bf_label.grid(row=1, column=0, padx=30, pady=[30, 0])
+bf_label.grid(row=1, column=0, padx=30, pady=[10, 0])
 bf_output = Label(body_fat_output_frame, font=("Helvetica 15 bold"))
 bf_output.grid(row=2, column=0)
 
@@ -224,22 +238,6 @@ lean_mass_label = Label(body_fat_output_frame, text="Lean Mass", font="bold")
 lean_mass_label.grid(row=7, column=0, pady=[31, 0])
 lean_mass_output = Label(body_fat_output_frame, font=("Helvetica 15 bold"))
 lean_mass_output.grid(row=8, column=0)
-
-
-def calculate_body_fat():
-    age = float(bf_age_input.get())
-    weight = float(bf_weight_input.get())
-    chest = float(bf_chest_input.get())
-    ab = float(bf_ab_input.get())
-    thigh = float(bf_thigh_input.get())
-
-    body_fat = male_body_fat(age, chest, ab, thigh)
-    fat_mass = weight * body_fat * 0.01
-
-    bf_output.config(text=f"{body_fat:.1f}%")
-    fat_mass_output.config(text=f"{fat_mass:.1f} lb")
-    lean_mass_output.config(text=f"{weight - fat_mass:.1f} lb")
-
 
 # Create the calculate button
 calculate_button = Button(
