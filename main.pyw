@@ -1,3 +1,8 @@
+# Todos
+# Add male/female radio buttons to body fat calculator
+# Add screenshots to readme
+# Try to implement return key for all frames
+
 from tkinter import (
     Tk,
     Frame,
@@ -48,13 +53,13 @@ def calculate_calories():
     net_output.config(text=int(net_calories))
 
 
-def clear():
-    # Clear input fields
+def calorie_clear():
+    # Clear output text
     bmr_output.config(text="")
     gross_output.config(text="")
     net_output.config(text="")
 
-    # Clear output text
+    # Clear input fields
     age_input.delete(0, END)
     weight_input.delete(0, END)
     height_input.delete(0, END)
@@ -79,6 +84,20 @@ def calculate_body_fat():
     bf_output.config(text=f"{body_fat:.1f}%")
     fat_mass_output.config(text=f"{fat_mass:.1f} lb")
     lean_mass_output.config(text=f"{weight - fat_mass:.1f} lb")
+
+
+def bf_clear():
+    # Clear input fields
+    bf_age_input.delete(0, END)
+    bf_weight_input.delete(0, END)
+    bf_chest_input.delete(0, END)
+    bf_ab_input.delete(0, END)
+    bf_thigh_input.delete(0, END)
+
+    # Clear output text
+    bf_output.config(text="")
+    fat_mass_output.config(text="")
+    lean_mass_output.config(text="")
 
 
 def calculate_bmi():
@@ -178,7 +197,7 @@ calculate_button = Button(
 calculate_button.grid(row=2, column=0, pady=[20, 0], padx=20)
 
 # Create the clear button
-clear_button = Button(exercise_frame, width=15, text="Clear", command=clear)
+clear_button = Button(exercise_frame, width=15, text="Clear", command=calorie_clear)
 clear_button.grid(row=2, column=1, pady=[20, 0])
 
 # Create the exit button
@@ -246,8 +265,8 @@ calculate_button = Button(
 calculate_button.grid(row=2, column=0, pady=[20, 0], padx=20)
 
 # Create the clear button
-clear_button = Button(body_fat_frame, width=15, text="Clear", command=clear)
-clear_button.grid(row=2, column=1, pady=[20, 0])
+bf_clear_button = Button(body_fat_frame, width=15, text="Clear", command=bf_clear)
+bf_clear_button.grid(row=2, column=1, pady=[20, 0])
 
 # Create the exit button
 exit_button = Button(body_fat_frame, width=20, text="Exit", command=root.quit)
