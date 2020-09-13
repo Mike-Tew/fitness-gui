@@ -1,7 +1,7 @@
 # Todos
 # Add male/female radio buttons to body fat calculator
-# Add screenshots to readme
 # Try to implement return key for all frames
+# Look into tab styling
 
 from tkinter import (
     Tk,
