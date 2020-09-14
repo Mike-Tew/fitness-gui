@@ -28,7 +28,23 @@ def male_body_fat(age, chest, ab, thigh):
     # Calculate male body fat percentage
     fatTotal = chest + ab + thigh
     fatSquared = fatTotal * fatTotal
-    density = 1.10938 - (0.0008267 * fatTotal) + (0.0000016 * fatSquared) - (0.0002574 * age)
+    density = (
+        1.10938 - (0.0008267 * fatTotal) + (0.0000016 * fatSquared) - (0.0002574 * age)
+    )
+
+    return (4.57 / density - 4.142) * 100
+
+
+def female_body_fat(age, chest, ab, thigh):
+    # Calculate female body fat percentage
+    fatTotal = chest + ab + thigh
+    fatSquared = fatTotal * fatTotal
+    density = (
+        1.0994921
+        - (0.0009929 * fatTotal)
+        + (0.0000023 * fatSquared)
+        - (0.0001392 * age)
+    )
 
     return (4.57 / density - 4.142) * 100
 

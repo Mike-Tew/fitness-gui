@@ -1,8 +1,3 @@
-# Todos
-# Add male/female radio buttons to body fat calculator
-# Try to implement return key for all frames
-# Look into tab styling
-
 from tkinter import (
     Tk,
     Frame,
@@ -22,6 +17,7 @@ from formulas import (
     male_calories,
     female_calories,
     male_body_fat,
+    female_body_fat,
     bmi_formula,
 )
 
@@ -77,7 +73,14 @@ def calculate_body_fat():
     ab = float(bf_ab_input.get())
     thigh = float(bf_thigh_input.get())
 
-    body_fat = male_body_fat(age, chest, ab, thigh)
+    print(bf_gender.get())
+    if bf_gender.get() == 0:
+        # Calculate body fat for males
+        body_fat = male_body_fat(age, chest, ab, thigh)
+    else:
+        # Calculate body fat for females
+        body_fat = female_body_fat(age, chest, ab, thigh)
+
     fat_mass = weight * body_fat * 0.01
 
     # Display fat percentages
@@ -135,6 +138,7 @@ exercise_title = Label(
 )
 exercise_title.grid(row=0, column=0, columnspan=2)
 gender = IntVar()
+bf_gender = IntVar()
 input_frame = LabelFrame(exercise_frame, text="Input", padx=20, pady=10)
 input_frame.grid(row=1, column=0, padx=10)
 
@@ -237,7 +241,17 @@ bf_ab_input.grid(row=8, column=0, pady=[0, 10])
 bf_thigh_label = Label(body_fat_input_frame, text="Thigh Skinfold (mm)")
 bf_thigh_label.grid(row=9, column=0)
 bf_thigh_input = Entry(body_fat_input_frame, width=10)
-bf_thigh_input.grid(row=10, column=0, pady=[0, 35])
+bf_thigh_input.grid(row=10, column=0, pady=[0, 10])
+
+body_fat_r1 = Radiobutton(
+    body_fat_input_frame, text="Male", variable=bf_gender, value=0
+)
+body_fat_r1.grid(row=11, column=0, sticky="W")
+
+body_fat_r2 = Radiobutton(
+    body_fat_input_frame, text="Female", variable=bf_gender, value=1
+)
+body_fat_r2.grid(row=11, column=0, sticky="E")
 
 # Body Fat Output Area
 body_fat_output_frame = LabelFrame(body_fat_frame, text="Output", padx=20, pady=10)

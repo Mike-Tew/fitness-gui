@@ -1,4 +1,4 @@
-# fitness-gui
+# Body Composition Calculator
 
 Tkinter application that calculates calories burned, measures body fat, and measures BMI of the user.
 
