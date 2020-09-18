@@ -73,7 +73,6 @@ def calculate_body_fat():
     ab = float(bf_ab_input.get())
     thigh = float(bf_thigh_input.get())
 
-    print(bf_gender.get())
     if bf_gender.get() == 0:
         # Calculate body fat for males
         body_fat = male_body_fat(age, chest, ab, thigh)
